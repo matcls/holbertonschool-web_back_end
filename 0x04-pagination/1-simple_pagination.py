@@ -3,6 +3,7 @@
 arguments page with default value 1 and page_size with default value 10
 """
 import csv
+import math
 from typing import List, Tuple
 
 
@@ -34,7 +35,6 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
-        """Constructor."""
         self.__dataset = None
 
     def dataset(self) -> List[List]:
@@ -60,4 +60,4 @@ class Server:
         if page > len(dataset) or page_size > len(dataset):
             return []
         indexes = index_range(page, page_size)
-        return dataset[indexes[0] : indexes[1]]
+        return dataset[indexes[0]:indexes[1]]
