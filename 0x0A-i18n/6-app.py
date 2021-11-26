@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Flask app."""
+import pytz
 from flask import Flask, g, render_template, request
 from flask_babel import Babel
 
@@ -63,6 +64,25 @@ def get_user(user):
 def before_request():
     """Get user, if any."""
     g.user = get_user(request.args.get("login_as"))
+
+
+@babel.timezoneselector
+def get_timezone():
+    """Get timezone from request."""
+    timezone = request.args.get("timezone")
+    if timezone:
+        try:
+            return pytz.timezone(timezone)
+        except pytz.exceptions.UnknownTimeZoneError:
+            pass
+    if g.user:
+        timezone = g.user.get("timezone")
+        if timezone:
+            try:
+                return pytz.timezone(timezone)
+            except pytz.exceptions.UnknownTimeZoneError:
+                pass
+    return pytz.timezone("utc")
 
 
 if __name__ == "__main__":
