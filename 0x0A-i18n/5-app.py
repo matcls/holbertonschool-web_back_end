@@ -33,7 +33,7 @@ def hello():
     Return:
       - Render template
     """
-    return render_template("5-index.html")
+    return render_template("5-index.html", user=g.user)
 
 
 @babel.localeselector
