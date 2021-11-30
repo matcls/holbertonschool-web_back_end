@@ -43,7 +43,8 @@ def replay(method: Callable):
     outputs = r.lrange(name + ":outputs", 0, -1)
     print("{} was called {} times:".format(name, count))
     for i, o in zip(inputs, outputs):
-        print("{}(*{}) -> {}".format(name, i.decode("utf-8"), o.decode("utf-8")))
+        print('{}(*{}) -> {}'.format(name, i.decode('utf-8'),
+                                     o.decode('utf-8')))
 
 
 class Cache:
